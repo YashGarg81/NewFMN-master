@@ -31,6 +31,7 @@ const Login = () => {
       }
       else{
       console.log("User Logged in Successfully: ", result);
+      localStorage.setItem("user", JSON.stringify(result.data));
       dispatch(setUserData(result.data));
       navigate("/");
       }
