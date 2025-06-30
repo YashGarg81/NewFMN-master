@@ -10,9 +10,23 @@ import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setUserData } from "./Redux/slices/user-slice";
 
 const App = () => {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+
+    if (storedUser) {
+      const userData = JSON.parse(storedUser);
+      dispatch(setUserData(userData));
+    }
+  }, []);
 
   return (
     <Router>
@@ -37,7 +51,7 @@ const App = () => {
           <Route path="/faq" element={<Faq />} />
         </Routes>
       </div>
-    </Router >
+    </Router>
   );
 };
 
